@@ -13,10 +13,11 @@ exports.registerUser = async (req, res) => {
     res.status(201).json({
       message: "Registered successfully",
       token,
+      status: true,
       user: { id: newUser._id, name: newUser.name, email: newUser.email },
     });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err.message, status: false });
   }
 };
 
@@ -33,9 +34,10 @@ exports.loginUser = async (req, res) => {
     res.json({
       message: "Login successful",
       token,
+      status: true,
       user: { id: user._id, name: user.name, email: user.email },
     });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err.message, status: false });
   }
 };

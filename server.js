@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
@@ -11,13 +12,13 @@ const checkoutRoutes = require("./routes/checkoutRoutes");
 
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_URI, credentials: true }));
 app.use(bodyParser.json());
 
-// Connect MongoDB
+app.use(cookieParser());
+
 connectDB();
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);

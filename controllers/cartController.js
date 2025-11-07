@@ -16,19 +16,29 @@ exports.addToCart = async (req, res) => {
     }
 
     const existing = cart.items.find((i) => i.productId === productId);
+
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.items.push({ ...product, qty });
+      cart.items.push({
+        productId,
+        title: product.title,
+        price: product.price,
+        image: product.image,
+        qty,
+      });
     }
 
     cart.total = cart.items.reduce((sum, item) => sum + item.price * item.qty, 0);
     await cart.save();
+
     res.json(cart);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: err.message });
   }
 };
+
 
 exports.getCart = async (req, res) => {
   const cart = await Cart.findOne({ userId: req.user });
