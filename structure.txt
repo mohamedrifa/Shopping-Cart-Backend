@@ -1,0 +1,30 @@
+backend/
+│
+├── server.js
+├── package.json
+│
+├── config/
+│   └── db.js                # MongoDB connection
+│
+├── controllers/
+│   ├── authController.js
+│   ├── cartController.js
+│   ├── productController.js
+│   └── checkoutController.js
+│
+├── middleware/
+│   └── authMiddleware.js    # Protect routes with JWT
+│
+├── models/
+│   ├── User.js
+│   ├── Product.js
+│   └── Cart.js
+│
+├── routes/
+│   ├── authRoutes.js
+│   ├── cartRoutes.js
+│   ├── productRoutes.js
+│   └── checkoutRoutes.js
+│
+└── utils/
+    └── fetchProducts.js     # Fetch from FakeStore API
