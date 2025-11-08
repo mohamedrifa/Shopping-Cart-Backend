@@ -1,11 +1,9 @@
 const axios = require("axios");
+const fakeData = require("./fakedatas.json");
 
 exports.fetchFakeProducts = async () => {
   try {
-    const { data } = await axios.get(
-      "https://api.allorigins.win/raw?url=https://fakestoreapi.com/products?limit=100"
-    );
-
+    const { data } = await axios.get("https://fakestoreapi.com/products?limit=100");
     return data.map((p) => ({
       id: p.id,
       title: p.title,
@@ -15,7 +13,7 @@ exports.fetchFakeProducts = async () => {
       description: p.description,
     }));
   } catch (err) {
-    console.error("Failed to fetch products:", err.message);
-    throw new Error("API fetch failed");
+    console.warn("Using fallback product list due to error:", err.message);
+    return fakeData;
   }
 };
